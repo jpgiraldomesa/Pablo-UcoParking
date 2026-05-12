@@ -15,8 +15,8 @@ public final class AddVehicleDomainMapper {
         return new VehicleEntity(
                 source.getId(),
                 source.getPlate(),
-                customer,
-                vehicleType
-        );
+                vehicleType,
+                customer
+                );
     }
 }

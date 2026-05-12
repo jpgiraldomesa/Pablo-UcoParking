@@ -8,11 +8,11 @@
         <version>4.0.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>co.edu.uco.treepruning</groupId>
-    <artifactId>tree-pruning</artifactId>
+    <groupId>co.edu.uco.ucoparking</groupId>
+    <artifactId>ucoparking</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>tree-pruning</name>
-    <description>Componente de exposición de servicios de UcoParking</description>
+    <name>ucoparking</name>
+    <description>Componente de exposicion de servicios de negocio de Uco Parking.</description>
     <url/>
     <licenses>
         <license/>
@@ -31,12 +31,13 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>3.2.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -51,11 +52,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

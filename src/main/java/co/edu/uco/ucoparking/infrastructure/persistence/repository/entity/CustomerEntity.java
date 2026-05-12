@@ -2,91 +2,94 @@ package co.edu.uco.ucoparking.infrastructure.persistence.repository.entity;
 
 import java.util.UUID;
 
+import co.edu.uco.ucoparking.crosscutting.helper.TextHelper;
+
 public class CustomerEntity {
+	private UUID id;
+	private OrganizationEntity organization;
+	private VehicleTypeEntity vehicleType;
+	private IdTypeEntity idType;
+	private String idNumber;
+	private String name;
+	private String lastName;
+	private String email;
+	private String phoneNumber;
+	
+	public CustomerEntity(UUID id, OrganizationEntity organization, VehicleTypeEntity vehicleType ,IdTypeEntity idType, String idNumber, String name,
+			String lastName, String email, String phoneNumber) {
+		super();
+		setId(id);
+		setOrganization(organization);
+		setVehicleType(vehicleType);
+		setIdType(idType);
+		setIdNumber(idNumber);
+		setName (name);
+		setLastName(lastName);
+		setEmail(email);
+		setPhoneNumber(phoneNumber);
+	}
 
-    private UUID id;
+	public UUID getId() {
+		return id;
+	}
 
-    private String name;
-    private String lastname;
-    private String email;
-    private String phonenumber;
-    private String idNumber;
-    private IdTypeEntity idType;
-    private OrganizationEntity organization;
+	public OrganizationEntity getOrganization() {
+		return organization;
+	}
+	public VehicleTypeEntity getVehicleType() {
+		return vehicleType;
+	}
 
-    public UUID getId() {
-        return id;
-    }
+	public IdTypeEntity getIdType() {
+		return idType;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getIdNumber() {
+		return idNumber;
+	}
 
-    public String getLastname() {
-        return lastname;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public String getPhonenumber() {
-        return phonenumber;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getIdNumber() {
-        return idNumber;
-    }
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
 
-    public IdTypeEntity getIdType() {
-        return idType;
-    }
-
-    public OrganizationEntity getOrganization() {
-        return organization;
-    }
-
-
-    private void setId(UUID id) {
-        this.id = id;
-    }
-
-    private void setName(String name) {
-        this.name = name;
-    }
-
-    private void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    private void setEmail(String email) {
-        this.email = email;
-    }
-
-    private void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
-    }
-
-    private void setIdType(IdTypeEntity idType) {
-        this.idType = idType;
-    }
+	private void setId(UUID id) { 
+		this.id = id;
+		}
+    private void setOrganization(OrganizationEntity organization) { 
+    	this.organization = organization;
+    	}
+    private void setVehicleType(VehicleTypeEntity vehicleType) {
+    	this.vehicleType = vehicleType;
+    	}
+    private void setIdType(IdTypeEntity idType) { 
+    	this.idType = idType; 
+    	}
 
     private void setIdNumber(String idNumber) {
-        this.idNumber = idNumber;
+        this.idNumber = TextHelper.clean(idNumber);         
     }
-
-    private void setOrganization(OrganizationEntity organization) {
-        this.organization = organization;
+    private void setName(String name) {
+        this.name = TextHelper.clean(name);                 
     }
-
-    public CustomerEntity(UUID id, String name, String lastname, String email, String phonenumber, String idNumber, IdTypeEntity idType, OrganizationEntity organization) {
-        setId(id);
-        setName(name);
-        setLastname(lastname);
-        setEmail(email);
-        setPhonenumber(phonenumber);
-        setIdNumber(idNumber);
-        setIdType(idType);
-        setOrganization(organization);
+    private void setLastName(String lastName) {
+        this.lastName = TextHelper.clean(lastName);         
+    }
+    private void setEmail(String email) {
+        this.email = TextHelper.cleanAndLowerCase(email);   
+    }
+    private void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = TextHelper.clean(phoneNumber);   
     }
 }

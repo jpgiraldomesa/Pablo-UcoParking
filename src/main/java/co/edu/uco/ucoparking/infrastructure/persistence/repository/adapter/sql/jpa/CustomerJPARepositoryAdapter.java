@@ -1,13 +1,13 @@
 package co.edu.uco.ucoparking.infrastructure.persistence.repository.adapter.sql.jpa;
 
+import java.util.List;
+import java.util.UUID;
+
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.CustomerRepository;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.adapter.sql.jpa.mapper.CustomerEntityMapper;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.entity.CustomerEntity;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.sql.jpa.CustomerJPARepository;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.sql.jpa.entity.CustomerJPAEntity;
-
-import java.util.List;
-import java.util.UUID;
 
 public class CustomerJPARepositoryAdapter implements CustomerRepository {
 
@@ -18,40 +18,39 @@ public class CustomerJPARepositoryAdapter implements CustomerRepository {
     }
 
     @Override
-    public void create(CustomerEntity customer) {
-        CustomerJPAEntity customerJPAEntity = CustomerEntityMapper.toJPA(customer);
-        repository.save(customerJPAEntity);
+    public void create(CustomerEntity entity) {
+        CustomerJPAEntity jpaEntity = CustomerEntityMapper.toJPA(entity);
+        repository.save(jpaEntity);
     }
 
     @Override
-    public void update(UUID id, CustomerEntity customer) {
-        CustomerJPAEntity customerJPAEntity = CustomerEntityMapper.toJPA(customer);
-        repository.save(customerJPAEntity); // JPA hace upsert por ID
+    public void update(UUID id, CustomerEntity entity) {
+        // TODO
     }
 
     @Override
     public void delete(UUID id) {
-        repository.deleteById(id);
+        // TODO
     }
 
     @Override
     public List<CustomerEntity> findAll() {
         return repository.findAll()
-                .stream()
-                .map(CustomerEntityMapper::toDomain)
-                .toList();
+            .stream()
+            .map(CustomerEntityMapper::toEntity)
+            .toList();
     }
 
     @Override
-    public List<CustomerEntity> findById(UUID id) {
-        return repository.findById(id)
-                .stream()
-                .map(CustomerEntityMapper::toDomain)
-                .toList();
-    }
-
-    @Override
-    public List<CustomerEntity> findByFilter(CustomerEntity customer) {
+    public List<CustomerEntity> findByfilter(CustomerEntity filter) {
+        // TODO
         return List.of();
+    }
+
+    @Override
+    public CustomerEntity findById(UUID id) {
+        return repository.findById(id)
+            .map(CustomerEntityMapper::toEntity)
+            .orElse(null);
     }
 }
