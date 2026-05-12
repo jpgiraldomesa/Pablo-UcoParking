@@ -24,7 +24,7 @@ public final class AddVehicleDTOValidator {
     }
 
     private static Specification<String> buildPlateSpec() {
-        Specification<String> spec = new Specification<String>();
+        Specification<String> spec = new Specification<>();
         spec.addRule(new NotNullStringRule(
                 "La placa del vehículo es obligatoria.",
                 "AddVehicleDTO.plate: null"));
@@ -44,7 +44,7 @@ public final class AddVehicleDTOValidator {
     }
 
     private static Specification<UUID> buildVehicleTypeSpec() {
-        Specification<UUID> spec = new Specification<UUID>();
+        Specification<UUID> spec = new Specification<>();
         spec.addRule(new NotNullUUIDRule(
                 "El tipo de vehículo es obligatorio.",
                 "AddVehicleDTO.vehicleType: null"));
@@ -52,7 +52,7 @@ public final class AddVehicleDTOValidator {
     }
 
     private static Specification<UUID> buildOwnerSpec() {
-        Specification<UUID> spec = new Specification<UUID>();
+        Specification<UUID> spec = new Specification<>();
         spec.addRule(new NotNullUUIDRule(
                 "El propietario del vehículo es obligatorio.",
                 "AddVehicleDTO.owner: null"));

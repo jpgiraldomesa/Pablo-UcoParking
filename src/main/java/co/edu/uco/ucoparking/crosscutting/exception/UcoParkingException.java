@@ -1,7 +1,10 @@
 package co.edu.uco.ucoparking.crosscutting.exception;
 
+import java.io.Serial;
+
 public class UcoParkingException extends RuntimeException {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private final String userMessage;

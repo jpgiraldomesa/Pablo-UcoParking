@@ -8,7 +8,7 @@ import co.edu.uco.ucoparking.application.usecase.rule.Rule;
 
 public final class Specification<T> {
 
-    private List<Rule<T>> rules = new ArrayList<>();
+    private final List<Rule<T>> rules = new ArrayList<>();
 
     public void addRule(Rule<T> rule) {
         rules.add(rule);

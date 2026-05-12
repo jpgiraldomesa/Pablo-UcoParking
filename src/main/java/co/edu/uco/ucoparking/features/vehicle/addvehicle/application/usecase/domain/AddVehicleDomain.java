@@ -2,89 +2,22 @@ package co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.do
 
 import java.util.UUID;
 
-import co.edu.uco.ucoparking.crosscutting.exception.UcoParkingException;
-import co.edu.uco.ucoparking.crosscutting.helper.ObjectHelper;
-import co.edu.uco.ucoparking.crosscutting.helper.TextHelper;
-
 public final class AddVehicleDomain {
 
-    private static final String PLATE_PATTERN = "^[A-Z]{3}-?[0-9]{3}$";
-
-    private UUID   id;
-    private String plate;
-    private UUID   vehicleType;
-    private UUID   owner;
+    private final UUID   id;
+    private final String plate;
+    private final UUID   vehicleType;
+    private final UUID   owner;
 
     public AddVehicleDomain(String plate, UUID vehicleType, UUID owner) {
-        this.id = UUID.randomUUID();
-        setPlate(plate);
-        setVehicleType(vehicleType);
-        setOwner(owner);
-    }
-
-    private void setPlate(String plate) {
-        String cleaned = TextHelper.cleanAndUpperCase(plate);
-
-        if (TextHelper.isBlank(cleaned)) {
-            throw UcoParkingException.create(
-                "La placa es obligatoria.",
-                "AddVehicleDomain.plate: blank or null"
-            );
-        }
-        if (TextHelper.isBelowMinLength(cleaned, 6)) {
-            throw UcoParkingException.create(
-                "La placa debe tener al menos 6 caracteres.",
-                "AddVehicleDomain.plate: length < 6"
-            );
-        }
-        if (TextHelper.exceedsMaxLength(cleaned, 7)) {
-            throw UcoParkingException.create(
-                "La placa no puede superar 7 caracteres.",
-                "AddVehicleDomain.plate: length > 7"
-            );
-        }
-        if (TextHelper.doesNotMatchPattern(cleaned, PLATE_PATTERN)) {
-            throw UcoParkingException.create(
-                "Formato de placa inválido. Use ABC123 o ABC-123.",
-                "AddVehicleDomain.plate: invalid format"
-            );
-        }
-        this.plate = cleaned;
-    }
-
-    private void setVehicleType(UUID vehicleType) {
-        if (ObjectHelper.isNull(vehicleType)) {
-            throw UcoParkingException.create(
-                "El tipo de vehículo es obligatorio.",
-                "AddVehicleDomain.vehicleType: null"
-            );
-        }
+        this.id          = UUID.randomUUID();
+        this.plate       = plate;
         this.vehicleType = vehicleType;
+        this.owner       = owner;
     }
 
-    private void setOwner(UUID owner) {
-        if (ObjectHelper.isNull(owner)) {
-            throw UcoParkingException.create(
-                "El propietario del vehículo es obligatorio.",
-                "AddVehicleDomain.owner: null"
-            );
-        }
-        this.owner = owner;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getPlate() {
-        return plate;
-    }
-
-    public UUID getVehicleType() {
-        return vehicleType;
-    }
-
-    public UUID getOwner() {
-        return owner;
-    }
+    public UUID   getId()          { return id; }
+    public String getPlate()       { return plate; }
+    public UUID   getVehicleType() { return vehicleType; }
+    public UUID   getOwner()       { return owner; }
 }
