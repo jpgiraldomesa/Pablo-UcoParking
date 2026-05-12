@@ -5,40 +5,26 @@ import java.util.UUID;
 import co.edu.uco.ucoparking.crosscutting.helper.TextHelper;
 
 public class VehicleEntity {
-	private UUID id;
-	private String plate;
-	private VehicleTypeEntity vehicleType;
-	private CustomerEntity owner;
 
-	public VehicleEntity(UUID id, String plate, VehicleTypeEntity vehicleType, CustomerEntity owner) {
-		super();
-		setId(id);
-		setPlate(plate);
-		setVehicleType(vehicleType);
-		setOwner(owner);
-	}
-	public UUID getId() {
-		return id;
-	}
-	public String getPlate() {
-		return plate;
-	}
-	public VehicleTypeEntity getVehicleType() {
-		return vehicleType;
-	}
-	public CustomerEntity getOwner() {
-		return owner;
-	}
-	private void setId(UUID id) {
-		this.id = id;
-	}
-	private void setPlate(String plate) {
-		this.plate = TextHelper.cleanAndUpperCase(plate);
-	}
-	private void setVehicleType(VehicleTypeEntity vehicleType) {
-		this.vehicleType = vehicleType;
-	}
-	private void setOwner(CustomerEntity owner) {
-		this.owner = owner;
-	}
+    private UUID id;
+    private String plate;
+    private VehicleTypeEntity vehicleType;
+    private CustomerEntity owner;
+
+    public VehicleEntity(UUID id, String plate, VehicleTypeEntity vehicleType, CustomerEntity owner) {
+        setId(id);
+        setPlate(plate);
+        setVehicleType(vehicleType);
+        setOwner(owner);
+    }
+
+    public UUID getId()                  { return id; }
+    public String getPlate()             { return plate; }
+    public VehicleTypeEntity getVehicleType() { return vehicleType; }
+    public CustomerEntity getOwner()     { return owner; }
+
+    private void setId(UUID id)                       { this.id = id; }
+    private void setPlate(String plate)               { this.plate = TextHelper.cleanAndUpperCase(plate); }
+    private void setVehicleType(VehicleTypeEntity vt) { this.vehicleType = vt; }
+    private void setOwner(CustomerEntity owner)       { this.owner = owner; }
 }

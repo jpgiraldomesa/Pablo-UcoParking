@@ -13,13 +13,15 @@ import co.edu.uco.ucoparking.features.vehicletype.getvehicletype.application.use
 public class GetVehicleTypeInteractor implements GetVehicleTypeInputPort {
 
     private final GetVehicleTypeUseCase useCase;
+    private final GetVehicleTypeDTOMapper mapper;
 
-    public GetVehicleTypeInteractor(GetVehicleTypeUseCase useCase) {
+    public GetVehicleTypeInteractor(GetVehicleTypeUseCase useCase, GetVehicleTypeDTOMapper mapper) {
         this.useCase = useCase;
+        this.mapper = mapper;
     }
 
     @Override
     public List<GetVehicleTypeDTO> execute(Void data) {
-        return GetVehicleTypeDTOMapper.toDTOList(useCase.execute(null));
+        return mapper.toDTOList(useCase.execute(null));
     }
 }

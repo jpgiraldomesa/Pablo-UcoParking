@@ -3,24 +3,27 @@ package co.edu.uco.ucoparking.infrastructure.persistence.repository.adapter.sql.
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.stereotype.Repository;
+
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.CustomerRepository;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.adapter.sql.jpa.mapper.CustomerEntityMapper;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.entity.CustomerEntity;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.sql.jpa.CustomerJPARepository;
-import co.edu.uco.ucoparking.infrastructure.persistence.repository.sql.jpa.entity.CustomerJPAEntity;
 
+@Repository
 public class CustomerJPARepositoryAdapter implements CustomerRepository {
 
     private final CustomerJPARepository repository;
+    private final CustomerEntityMapper mapper;
 
-    public CustomerJPARepositoryAdapter(CustomerJPARepository repository) {
+    public CustomerJPARepositoryAdapter(CustomerJPARepository repository, CustomerEntityMapper mapper) {
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     @Override
     public void create(CustomerEntity entity) {
-        CustomerJPAEntity jpaEntity = CustomerEntityMapper.toJPA(entity);
-        repository.save(jpaEntity);
+        repository.save(mapper.toJPA(entity));
     }
 
     @Override
@@ -37,12 +40,12 @@ public class CustomerJPARepositoryAdapter implements CustomerRepository {
     public List<CustomerEntity> findAll() {
         return repository.findAll()
             .stream()
-            .map(CustomerEntityMapper::toEntity)
+            .map(mapper::toEntity)
             .toList();
     }
 
     @Override
-    public List<CustomerEntity> findByfilter(CustomerEntity filter) {
+    public List<CustomerEntity> findByFilter(CustomerEntity filter) {
         // TODO
         return List.of();
     }
@@ -50,7 +53,7 @@ public class CustomerJPARepositoryAdapter implements CustomerRepository {
     @Override
     public CustomerEntity findById(UUID id) {
         return repository.findById(id)
-            .map(CustomerEntityMapper::toEntity)
+            .map(mapper::toEntity)
             .orElse(null);
     }
 }

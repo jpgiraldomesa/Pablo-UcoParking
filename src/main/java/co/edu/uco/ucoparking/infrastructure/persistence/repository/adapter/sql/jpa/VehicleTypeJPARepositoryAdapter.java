@@ -3,22 +3,27 @@ package co.edu.uco.ucoparking.infrastructure.persistence.repository.adapter.sql.
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.stereotype.Repository;
+
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.VehicleTypeRepository;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.adapter.sql.jpa.mapper.VehicleTypeEntityMapper;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.entity.VehicleTypeEntity;
 import co.edu.uco.ucoparking.infrastructure.persistence.repository.sql.jpa.VehicleTypeJPARepository;
 
+@Repository
 public class VehicleTypeJPARepositoryAdapter implements VehicleTypeRepository {
 
-    private VehicleTypeJPARepository repository;
+    private final VehicleTypeJPARepository repository;
+    private final VehicleTypeEntityMapper mapper;
 
-    public VehicleTypeJPARepositoryAdapter(VehicleTypeJPARepository repository) {
+    public VehicleTypeJPARepositoryAdapter(VehicleTypeJPARepository repository, VehicleTypeEntityMapper mapper) {
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     @Override
     public void create(VehicleTypeEntity entity) {
-        repository.save(VehicleTypeEntityMapper.toJPA(entity));
+        repository.save(mapper.toJPA(entity));
     }
 
     @Override
@@ -35,7 +40,7 @@ public class VehicleTypeJPARepositoryAdapter implements VehicleTypeRepository {
     public List<VehicleTypeEntity> findAll() {
         return repository.findAll()
             .stream()
-            .map(VehicleTypeEntityMapper::toEntity)
+            .map(mapper::toEntity)
             .toList();
     }
 
@@ -48,7 +53,7 @@ public class VehicleTypeJPARepositoryAdapter implements VehicleTypeRepository {
     @Override
     public VehicleTypeEntity findById(UUID id) {
         return repository.findById(id)
-            .map(VehicleTypeEntityMapper::toEntity)
+            .map(mapper::toEntity)
             .orElse(null);
     }
 }

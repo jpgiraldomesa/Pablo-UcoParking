@@ -10,7 +10,7 @@ public interface CustomerRepository {
 	void update(UUID id, CustomerEntity entity);
 	void delete(UUID id);
 	List<CustomerEntity> findAll();
-	List<CustomerEntity> findByfilter(CustomerEntity filter);
+	List<CustomerEntity> findByFilter(CustomerEntity filter);
 	CustomerEntity findById(UUID id);
 
 }
