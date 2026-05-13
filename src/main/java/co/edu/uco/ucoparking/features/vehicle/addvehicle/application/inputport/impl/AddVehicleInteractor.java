@@ -25,7 +25,6 @@ public class AddVehicleInteractor implements AddVehicleInputPort {
         AddVehicleDTOValidator.validateVehicleType(data.getVehicleType());
         AddVehicleDTOValidator.validateOwner(data.getOwner());
 
-        AddVehicleDomain domain = new AddVehicleDomain(cleanedPlate, data.getVehicleType(), data.getOwner());
-        return useCase.execute(domain);
+        return useCase.execute(new AddVehicleDomain(cleanedPlate, data.getVehicleType(), data.getOwner()));
     }
 }

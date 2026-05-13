@@ -18,16 +18,16 @@ import co.edu.uco.ucoparking.infrastructure.persistence.repository.entity.Vehicl
 @Service
 public class AddVehicleUseCaseImpl implements AddVehicleUseCase {
 
-    private final CustomerRepository customerRepository;
-    private final VehicleRepository vehicleRepository;
-    private final VehicleTypeRepository vehicleTypeRepository;
+    private final CustomerRepository     customerRepository;
+    private final VehicleRepository      vehicleRepository;
+    private final VehicleTypeRepository  vehicleTypeRepository;
 
     public AddVehicleUseCaseImpl(CustomerRepository customerRepository,
-                                  VehicleRepository vehicleRepository,
-                                  VehicleTypeRepository vehicleTypeRepository) {
-        this.customerRepository = customerRepository;
-        this.vehicleRepository = vehicleRepository;
-        this.vehicleTypeRepository = vehicleTypeRepository;
+                                 VehicleRepository vehicleRepository,
+                                 VehicleTypeRepository vehicleTypeRepository) {
+        this.customerRepository     = customerRepository;
+        this.vehicleRepository      = vehicleRepository;
+        this.vehicleTypeRepository  = vehicleTypeRepository;
     }
 
     @Override

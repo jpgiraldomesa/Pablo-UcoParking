@@ -4,20 +4,40 @@ import java.util.UUID;
 
 public final class AddVehicleDomain {
 
-    private final UUID   id;
-    private final String plate;
-    private final UUID   vehicleType;
-    private final UUID   owner;
+    private UUID   id;
+    private String plate;
+    private UUID   vehicleType;
+    private UUID   owner;
 
     public AddVehicleDomain(String plate, UUID vehicleType, UUID owner) {
-        this.id          = UUID.randomUUID();
-        this.plate       = plate;
-        this.vehicleType = vehicleType;
-        this.owner       = owner;
+        regenerateId();
+        setPlate(plate);
+        setVehicleType(vehicleType);
+        setOwner(owner);
     }
 
     public UUID   getId()          { return id; }
     public String getPlate()       { return plate; }
     public UUID   getVehicleType() { return vehicleType; }
     public UUID   getOwner()       { return owner; }
+
+    public void regenerateId() {
+        generateId();
+    }
+
+    private void generateId() {
+        this.id = UUID.randomUUID();
+    }
+
+    private void setPlate(String plate) {
+        this.plate = plate;
+    }
+
+    private void setVehicleType(UUID vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
+    private void setOwner(UUID owner) {
+        this.owner = owner;
+    }
 }
