@@ -1,11 +1,14 @@
-package co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.rules;
+package co.edu.uco.ucoparking.features.vehicletype.getvehicletypebyid.application.usecase.rules;
 
 import java.util.UUID;
+
+import java.io.Serial;
 
 import co.edu.uco.ucoparking.crosscutting.exception.UcoParkingException;
 
 public final class VehicleTypeNotFoundException extends UcoParkingException {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private VehicleTypeNotFoundException(String userMessage, String technicalMessage) {
@@ -15,7 +18,7 @@ public final class VehicleTypeNotFoundException extends UcoParkingException {
     public static VehicleTypeNotFoundException create(UUID vehicleTypeId) {
         return new VehicleTypeNotFoundException(
             "El tipo de vehículo seleccionado no existe.",
-            "AddVehicle: vehicleType not found with id=" + vehicleTypeId
+            "GetVehicleTypeById: vehicleType not found with id=" + vehicleTypeId
         );
     }
 }

@@ -13,10 +13,10 @@ public class CustomerEntity {
     private String name;
     private String lastName;
     private String email;
-    private String phoneNumber;
+    private Long phoneNumber;
 
     public CustomerEntity(UUID id, OrganizationEntity organization, IdTypeEntity idType,
-            String idNumber, String name, String lastName, String email, String phoneNumber) {
+            String idNumber, String name, String lastName, String email, Long phoneNumber) {
         setId(id);
         setOrganization(organization);
         setIdType(idType);
@@ -34,7 +34,7 @@ public class CustomerEntity {
     public String getName()                { return name; }
     public String getLastName()            { return lastName; }
     public String getEmail()               { return email; }
-    public String getPhoneNumber()         { return phoneNumber; }
+    public Long getPhoneNumber()           { return phoneNumber; }
 
     private void setId(UUID id)                       { this.id = id; }
     private void setOrganization(OrganizationEntity o){ this.organization = o; }
@@ -43,5 +43,5 @@ public class CustomerEntity {
     private void setName(String name)                 { this.name = TextHelper.clean(name); }
     private void setLastName(String lastName)         { this.lastName = TextHelper.clean(lastName); }
     private void setEmail(String email)               { this.email = TextHelper.cleanAndLowerCase(email); }
-    private void setPhoneNumber(String phoneNumber)   { this.phoneNumber = TextHelper.clean(phoneNumber); }
+    private void setPhoneNumber(Long phoneNumber)     { this.phoneNumber = phoneNumber; }
 }

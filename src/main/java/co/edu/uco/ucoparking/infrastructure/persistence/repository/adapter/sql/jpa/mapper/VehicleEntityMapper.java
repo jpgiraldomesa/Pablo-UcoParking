@@ -1,5 +1,7 @@
 package co.edu.uco.ucoparking.infrastructure.persistence.repository.adapter.sql.jpa.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -17,4 +19,6 @@ public interface VehicleEntityMapper {
 
     @Mapping(source = "customer", target = "owner")
     VehicleEntity toEntity(VehicleJPAEntity jpaEntity);
+
+    List<VehicleEntity> toEntityList(List<VehicleJPAEntity> jpaEntities);
 }

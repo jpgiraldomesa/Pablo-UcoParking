@@ -1,75 +1,59 @@
 package co.edu.uco.ucoparking.features.vehicle.addvehicle.application.inputport.dto.validator;
 
-import co.edu.uco.ucoparking.crosscutting.validation.cleaner.string.TrimUpperCaseStringCleaner;
-import co.edu.uco.ucoparking.application.usecase.rule.string.MaxLengthStringRule;
-import co.edu.uco.ucoparking.application.usecase.rule.string.MinLengthStringRule;
-import co.edu.uco.ucoparking.application.usecase.rule.string.NotBlankStringRule;
-import co.edu.uco.ucoparking.application.usecase.rule.string.NotNullStringRule;
-import co.edu.uco.ucoparking.application.usecase.rule.string.RegexStringRule;
-import co.edu.uco.ucoparking.application.usecase.rule.uuid.NotNullUUIDRule;
-import co.edu.uco.ucoparking.crosscutting.validation.specification.Specification;
 import java.util.UUID;
+
+import co.edu.uco.ucoparking.crosscutting.exception.UcoParkingException;
+import co.edu.uco.ucoparking.crosscutting.helper.TextHelper;
+import co.edu.uco.ucoparking.crosscutting.helper.UUIDHelper;
 
 public final class AddVehicleDTOValidator {
 
-    private static final String PLATE_PATTERN = "^[A-Z]{3}-?[0-9]{3}$";
-
-    private static final TrimUpperCaseStringCleaner PLATE_CLEANER = new TrimUpperCaseStringCleaner();
-
-    private static final Specification<String> PLATE_SPEC = buildPlateSpec();
-    private static final Specification<UUID>   VEHICLE_TYPE_SPEC = buildVehicleTypeSpec();
-    private static final Specification<UUID>   OWNER_SPEC = buildOwnerSpec();
+    // Carro: ABC123 | Moto: ABC12A | Moto antigua: ABC12
+    private static final String PLATE_PATTERN = "^[A-Z]{3}[0-9]{2}[A-Z0-9]?$";
 
     private AddVehicleDTOValidator() {
     }
 
-    private static Specification<String> buildPlateSpec() {
-        Specification<String> spec = new Specification<>();
-        spec.addRule(new NotNullStringRule(
-                "La placa del vehículo es obligatoria.",
-                "AddVehicleDTO.plate: null"));
-        spec.addRule(new NotBlankStringRule(
-                "La placa del vehículo no puede estar vacía.",
-                "AddVehicleDTO.plate: blank"));
-        spec.addRule(new MinLengthStringRule(6,
-                "La placa debe tener mínimo 6 caracteres.",
-                "AddVehicleDTO.plate: length < 6"));
-        spec.addRule(new MaxLengthStringRule(7,
-                "La placa no puede superar 7 caracteres.",
-                "AddVehicleDTO.plate: length > 7"));
-        spec.addRule(new RegexStringRule(PLATE_PATTERN,
-                "El formato de placa no es válido. Use ABC123 o ABC-123.",
-                "AddVehicleDTO.plate: does not match " + PLATE_PATTERN));
-        return spec;
-    }
-
-    private static Specification<UUID> buildVehicleTypeSpec() {
-        Specification<UUID> spec = new Specification<>();
-        spec.addRule(new NotNullUUIDRule(
-                "El tipo de vehículo es obligatorio.",
-                "AddVehicleDTO.vehicleType: null"));
-        return spec;
-    }
-
-    private static Specification<UUID> buildOwnerSpec() {
-        Specification<UUID> spec = new Specification<>();
-        spec.addRule(new NotNullUUIDRule(
-                "El propietario del vehículo es obligatorio.",
-                "AddVehicleDTO.owner: null"));
-        return spec;
-    }
-
     public static String cleanAndValidatePlate(String plate) {
-        String cleaned = PLATE_CLEANER.clean(plate);
-        PLATE_SPEC.validate(cleaned);
+        String cleaned = TextHelper.cleanAndUpperCase(plate);
+
+        if (TextHelper.isBlank(cleaned)) {
+            throw UcoParkingException.create(
+                "La placa del vehículo es obligatoria.",
+                "AddVehicleDTO.plate: blank or null");
+        }
+        if (TextHelper.isBelowMinLength(cleaned, 5)) {
+            throw UcoParkingException.create(
+                "La placa debe tener mínimo 5 caracteres.",
+                "AddVehicleDTO.plate: length < 5");
+        }
+        if (TextHelper.exceedsMaxLength(cleaned, 6)) {
+            throw UcoParkingException.create(
+                "La placa no puede superar 6 caracteres.",
+                "AddVehicleDTO.plate: length > 6");
+        }
+        if (TextHelper.doesNotMatchPattern(cleaned, PLATE_PATTERN)) {
+            throw UcoParkingException.create(
+                "El formato de placa no es válido. Use ABC123 (carro), ABC12A (moto) o ABC12 (moto antigua).",
+                "AddVehicleDTO.plate: does not match " + PLATE_PATTERN);
+        }
+
         return cleaned;
     }
 
     public static void validateVehicleType(UUID vehicleType) {
-        VEHICLE_TYPE_SPEC.validate(vehicleType);
+        if (UUIDHelper.isNull(vehicleType)) {
+            throw UcoParkingException.create(
+                "El tipo de vehículo es obligatorio.",
+                "AddVehicleDTO.vehicleType: null");
+        }
     }
 
     public static void validateOwner(UUID owner) {
-        OWNER_SPEC.validate(owner);
+        if (UUIDHelper.isNull(owner)) {
+            throw UcoParkingException.create(
+                "El propietario del vehículo es obligatorio.",
+                "AddVehicleDTO.owner: null");
+        }
     }
 }

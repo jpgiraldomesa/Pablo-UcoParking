@@ -1,4 +1,4 @@
-package co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.rules;
+package co.edu.uco.ucoparking.features.customer.getcustomerbyid.application.usecase.rules;
 
 import java.io.Serial;
 import java.util.UUID;
@@ -16,8 +16,8 @@ public final class CustomerNotFoundException extends UcoParkingException {
 
     public static CustomerNotFoundException create(UUID customerId) {
         return new CustomerNotFoundException(
-            "No se encontró un cliente con el identificador proporcionado.",
-            "AddVehicle: customer not found with id=" + customerId
+            "El cliente no existe.",
+            "GetCustomerById: customer not found with id=" + customerId
         );
     }
 }

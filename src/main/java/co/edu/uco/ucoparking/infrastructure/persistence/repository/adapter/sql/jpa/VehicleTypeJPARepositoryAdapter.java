@@ -38,10 +38,7 @@ public class VehicleTypeJPARepositoryAdapter implements VehicleTypeRepository {
 
     @Override
     public List<VehicleTypeEntity> findAll() {
-        return repository.findAll()
-            .stream()
-            .map(mapper::toEntity)
-            .toList();
+        return mapper.toEntityList(repository.findAll());
     }
 
     @Override

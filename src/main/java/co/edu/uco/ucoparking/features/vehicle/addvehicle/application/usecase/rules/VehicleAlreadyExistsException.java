@@ -2,8 +2,11 @@ package co.edu.uco.ucoparking.features.vehicle.addvehicle.application.usecase.ru
 
 import co.edu.uco.ucoparking.crosscutting.exception.UcoParkingException;
 
+import java.io.Serial;
+
 public final class VehicleAlreadyExistsException extends UcoParkingException {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private VehicleAlreadyExistsException(String userMessage, String technicalMessage) {

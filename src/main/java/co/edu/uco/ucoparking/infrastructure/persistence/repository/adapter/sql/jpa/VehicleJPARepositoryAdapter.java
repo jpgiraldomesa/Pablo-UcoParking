@@ -38,15 +38,20 @@ public class VehicleJPARepositoryAdapter implements VehicleRepository {
 
     @Override
     public List<VehicleEntity> findAll() {
-        return repository.findAll()
-            .stream()
-            .map(mapper::toEntity)
-            .toList();
+        return mapper.toEntityList(repository.findAll());
     }
 
     @Override
     public List<VehicleEntity> findByFilter(VehicleEntity filter) {
-        // TODO
+        if (filter.getPlate() != null) {
+            return mapper.toEntityList(repository.findByPlate(filter.getPlate()));
+        }
+        if (filter.getOwner() != null && filter.getVehicleType() != null) {
+            return mapper.toEntityList(
+                repository.findByCustomerIdAndVehicleTypeId(
+                    filter.getOwner().getId(),
+                    filter.getVehicleType().getId()));
+        }
         return List.of();
     }
 

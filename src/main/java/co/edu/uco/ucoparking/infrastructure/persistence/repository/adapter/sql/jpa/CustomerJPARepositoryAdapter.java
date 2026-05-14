@@ -38,10 +38,7 @@ public class CustomerJPARepositoryAdapter implements CustomerRepository {
 
     @Override
     public List<CustomerEntity> findAll() {
-        return repository.findAll()
-            .stream()
-            .map(mapper::toEntity)
-            .toList();
+        return mapper.toEntityList(repository.findAll());
     }
 
     @Override
